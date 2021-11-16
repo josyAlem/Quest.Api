@@ -36,7 +36,6 @@ namespace Quest.Api
             virtualDirectory = swaggerGenerationConfig[VirtualDirectory];
             appName = swaggerGenerationConfig[AppName];
 
-            //var auth0Setting = auth0Config.Get<Auth0Settings>();
 
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Information()
@@ -60,13 +59,6 @@ namespace Quest.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            #region Setting Config
-            var auth0Setting = new Auth0Settings();
-            var auth0Config = Configuration.GetSection("Auth0");
-            auth0Config.Bind(auth0Setting);
-            services.Configure<Auth0Settings>(auth0Config);
-            #endregion
-
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -74,8 +66,15 @@ namespace Quest.Api
             });
 
             #region Authentication and Authorization
+            var auth0Setting = new Auth0Settings();
+            var auth0Config = Configuration.GetSection("Auth0");
+            auth0Config.Bind(auth0Setting);
+            
+            services.Configure<Auth0Settings>(auth0Config); 
             ConfigureAuthorization.Init(services, auth0Setting.Domain, auth0Setting.QuestAuth.Audience);
             #endregion
+
+            services.AddCors(c => c.AddDefaultPolicy(p => p.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<IAuth0Service, Auth0Service>();
@@ -111,6 +110,7 @@ namespace Quest.Api
             app.UseAuthentication();
 
             app.UseAuthorization();
+            app.UseCors();
 
             app.UseEndpoints(endpoints =>
             {
