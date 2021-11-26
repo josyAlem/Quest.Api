@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Quest.Api.Common.Request;
 using Quest.Api.Common.Response;
+using Studio.Auth.Auth0.Models;
 
 namespace Quest.Api.Common
 {
