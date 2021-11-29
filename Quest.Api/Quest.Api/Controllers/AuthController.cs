@@ -45,12 +45,5 @@ namespace Quest.Api.Controllers
             var response = await _authenticationService.Refresh(refreshTokenRequest);
             return Ok(response);
         }
-
-        [HttpGet("[action]")]
-        [Authorize(AuthorizationScope.Products.Get)]
-        public IActionResult Validate()
-        {
-            return Ok();//return user
-        }
-    }
+}
 }

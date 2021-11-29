@@ -18,10 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Quest.Api.Common\Quest.Api.Common.csproj" />
     <ProjectReference Include="..\Quest.Api.Services\Quest.Api.Services.csproj" />
   </ItemGroup>
