@@ -5,11 +5,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Quest.Api.Helpers.Auth;
-using Quest.Api.Common.Settings;
 using Quest.Api.Services;
 using Quest.Api.Services.Interfaces;
 using Serilog;
+using Studio.Auth.Auth0.Config;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Quest.Api
 {
@@ -66,18 +68,19 @@ namespace Quest.Api
             });
 
             #region Authentication and Authorization
-            var auth0Setting = new Auth0Settings();
-            var auth0Config = Configuration.GetSection("Auth0");
-            auth0Config.Bind(auth0Setting);
-            
-            services.Configure<Auth0Settings>(auth0Config); 
-            ConfigureAuthorization.Init(services, auth0Setting.Domain, auth0Setting.QuestAuth.Audience);
+            //get auth scope list
+            List<Type> scopeTypes = typeof(AuthorizationScope).Assembly.GetTypes()
+                .Where(t => t.IsClass && t.IsSealed && t.IsAbstract && t.DeclaringType != null
+                  && t.DeclaringType.Name == nameof(AuthorizationScope)).ToList();
+
+            IConfiguration auth0Config = Configuration.GetSection("Auth0");
+
+            Auth0Middleware.Init(services, auth0Config, scopeTypes);
             #endregion
 
             services.AddCors(c => c.AddDefaultPolicy(p => p.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            services.AddScoped<IAuth0Service, Auth0Service>();
             services.AddScoped<IAuthService, AuthService>();
 
         }
