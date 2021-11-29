@@ -1,4 +1,7 @@
 version: 2.1
+nuget: sources Add -Name "GPR" \
+     -Source "https://nuget.pkg.github.com/OWNER/index.json" \
+     -UserName USERNAME -Password TOKEN
 jobs:
    build:
         machine: true
