@@ -6,11 +6,11 @@ WORKDIR /app
 #EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
-WORKDIR /src
-COPY ["Quest.Api/Quest.Api/Quest.Api.csproj", "Quest.Api/Quest.Api/"]
-RUN dotnet restore "Quest.Api/Quest.Api/Quest.Api.csproj"
+WORKDIR /build_src
+COPY ["src/Quest.Api/Quest.Api.csproj", "src/Quest.Api/"]
+RUN dotnet restore "src/Quest.Api/Quest.Api.csproj"
 COPY . .
-WORKDIR "/src/Quest.Api/Quest.Api"
+WORKDIR "/build_src/src/Quest.Api"
 RUN dotnet build "Quest.Api.csproj" -c Release -o /app/build
 
 FROM build AS publish
