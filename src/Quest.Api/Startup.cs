@@ -44,7 +44,7 @@ namespace Quest.Api
               .Enrich.WithProperty("Application", appName)
               .Enrich.FromLogContext()
               .WriteTo.Console()
-              .WriteTo.File(path: "C:\\Logs\\Quest.Auth.Api\\Quest.Auth.Api-.log",
+              .WriteTo.File(path: $"C:\\Logs\\{appName}\\{appName}-.log",
               restrictedToMinimumLevel: Serilog.Events.LogEventLevel.Information,
               outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{RequestId}] {Message}{NewLine}{Exception}",
               null, fileSizeLimitBytes: 104857600, null,

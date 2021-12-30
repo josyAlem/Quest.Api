@@ -4,6 +4,7 @@ using Quest.Api.Common.Response;
 using Quest.Api.Services.Interfaces;
 using Studio.Auth.Auth0.Interfaces;
 using Studio.Auth.Auth0.Models;
+using System;
 using System.Threading.Tasks;
 
 namespace Quest.Api.Services
@@ -21,13 +22,18 @@ namespace Quest.Api.Services
 
         public async Task<LoginResponse> Login(LoginRequest loginRequest)
         {
-            Auth0LoginRequest auth0loginRequest = _mapper.Map<Auth0LoginRequest>(loginRequest);
-            var authresponse =await _auth0Service.Login(auth0loginRequest);
-            LoginResponse loginResponse = _mapper.Map<LoginResponse>(authresponse);
+            try
+            {
+                Auth0LoginRequest auth0loginRequest = _mapper.Map<Auth0LoginRequest>(loginRequest);
+                var authresponse = await _auth0Service.Login(auth0loginRequest);
+                LoginResponse loginResponse = _mapper.Map<LoginResponse>(authresponse);
 
 
-            return loginResponse;
-
+                return loginResponse;
+            }
+            catch  {
+                throw;
+            }
         }
 
         public async Task<RefreshTokenResponse> Refresh(RefreshTokenRequest refreshTokenRequest)

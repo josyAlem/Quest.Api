@@ -5,7 +5,7 @@ using Quest.Api.Common.Request;
 using Quest.Api.Common.Response;
 using Quest.Api.Services.Interfaces;
 using System.Threading.Tasks;
-
+using System;
 
 namespace Quest.Api.Controllers
 {
@@ -33,10 +33,11 @@ namespace Quest.Api.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<LoginResponse>> Login([FromBody] LoginRequest loginRequest)
         {
-           var response=await _authenticationService.Login(loginRequest);
-            var x = User;
-            return Ok(response); 
-        }
+            try { var response = await _authenticationService.Login(loginRequest);
+                return Ok(response);
+            } catch (Exception ex) {
+                return StatusCode(500, ex);
+            } }
        
         [HttpPost("[action]")]
         [AllowAnonymous]
