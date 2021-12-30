@@ -8,7 +8,7 @@ jobs:
           #build image
           - run: |         
               docker info
-              docker build -t quest-api . -f .\src\Quest.Api\Dockerfile
+              docker build -t quest-api . -f ./src/Quest.Api/Dockerfile
 
           # deploy the image
           - run: |         
