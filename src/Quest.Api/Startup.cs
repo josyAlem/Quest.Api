@@ -78,11 +78,10 @@ namespace Quest.Api
             Auth0Middleware.Init(services, auth0Config, scopeTypes);
             #endregion
 
-            services.AddCors(c => c.AddDefaultPolicy(p => p.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
+            services.AddCors(c =>c.AddDefaultPolicy(p => p.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<IAuthService, AuthService>();
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -110,10 +109,12 @@ namespace Quest.Api
 
             app.UseRouting();
 
+            app.UseCors();
+           
             app.UseAuthentication();
 
             app.UseAuthorization();
-            app.UseCors();
+            
 
             app.UseEndpoints(endpoints =>
             {
