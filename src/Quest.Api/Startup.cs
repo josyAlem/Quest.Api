@@ -78,7 +78,7 @@ namespace Quest.Api
             Auth0Middleware.Init(services, auth0Config, scopeTypes);
             #endregion
 
-            services.AddCors(c =>c.AddDefaultPolicy(p => p.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
+            services.AddCors(c => c.AddDefaultPolicy(p => p.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<IAuthService, AuthService>();
@@ -110,11 +110,11 @@ namespace Quest.Api
             app.UseRouting();
 
             app.UseCors();
-           
+
             app.UseAuthentication();
 
             app.UseAuthorization();
-            
+
 
             app.UseEndpoints(endpoints =>
             {

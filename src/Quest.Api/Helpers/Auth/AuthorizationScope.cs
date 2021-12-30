@@ -4,10 +4,10 @@
     {
         public static class Cart
         {
-            public const string Get ="cart:get"; 
-            public const string Add= "cart:add"; 
-            public const string Edit = "cart:edit"; 
-            public const string Remove = "cart:remove"; 
+            public const string Get = "cart:get";
+            public const string Add = "cart:add";
+            public const string Edit = "cart:edit";
+            public const string Remove = "cart:remove";
         }
 
         public static class Catalog

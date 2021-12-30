@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace Quest.Api.Services.Interfaces
 {
-    public  interface IUserService
+    public interface IUserService
     {
         public UserInfoResponse UserInfo(UserInfoRequest userInfoRequest);
-        public List<RoleResponse> GetRoles(string  userid);
+        public List<RoleResponse> GetRoles(string userid);
     }
 }

@@ -4,7 +4,6 @@ using Quest.Api.Common.Response;
 using Quest.Api.Services.Interfaces;
 using Studio.Auth.Auth0.Interfaces;
 using Studio.Auth.Auth0.Models;
-using System;
 using System.Threading.Tasks;
 
 namespace Quest.Api.Services
@@ -25,35 +24,52 @@ namespace Quest.Api.Services
             try
             {
                 Auth0LoginRequest auth0loginRequest = _mapper.Map<Auth0LoginRequest>(loginRequest);
-                var authresponse = await _auth0Service.Login(auth0loginRequest);
-                LoginResponse loginResponse = _mapper.Map<LoginResponse>(authresponse);
+                var authResponse = await _auth0Service.Login(auth0loginRequest);
+                LoginResponse loginResponse = _mapper.Map<LoginResponse>(authResponse);
 
 
                 return loginResponse;
             }
-            catch  {
+            catch
+            {
                 throw;
             }
         }
 
         public async Task<RefreshTokenResponse> Refresh(RefreshTokenRequest refreshTokenRequest)
         {
-            Auth0RefreshTokenRequest auth0refreshTokenRequest = _mapper.Map<Auth0RefreshTokenRequest>(refreshTokenRequest);
-            var authresponse = await _auth0Service.Refresh(auth0refreshTokenRequest);
 
-            RefreshTokenResponse refreshResponse = _mapper.Map<RefreshTokenResponse>(authresponse);
+            try
+            {
+                Auth0RefreshTokenRequest auth0refreshTokenRequest = _mapper.Map<Auth0RefreshTokenRequest>(refreshTokenRequest);
+                var authResponse = await _auth0Service.Refresh(auth0refreshTokenRequest);
 
-            return refreshResponse;
+                RefreshTokenResponse refreshResponse = _mapper.Map<RefreshTokenResponse>(authResponse);
+
+                return refreshResponse;
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         public async Task<SignupResponse> SignUp(SignupRequest signupRequest)
         {
-            Auth0SignupRequest auth0signupRequest = _mapper.Map<Auth0SignupRequest>(signupRequest);
-            var authresponse = await _auth0Service.SignUp(auth0signupRequest);
 
-            SignupResponse loginResponse = _mapper.Map<SignupResponse>(authresponse);
+            try
+            {
+                Auth0SignupRequest auth0signupRequest = _mapper.Map<Auth0SignupRequest>(signupRequest);
+                var authResponse = await _auth0Service.SignUp(auth0signupRequest);
 
-            return loginResponse;
+                SignupResponse signupResponse = _mapper.Map<SignupResponse>(authResponse);
+
+                return signupResponse;
+            }
+            catch
+            {
+                throw;
+            }
         }
     }
 }
