@@ -14,7 +14,8 @@ FROM build AS publish
 RUN dotnet publish "Quest.Api.csproj" -c Release -o /app/publish
 
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
-WORKDIR /app
+RUN mkdir -p /app/quest-api
+WORKDIR /app/quest-api
 
 COPY --from=publish /app/publish .
 CMD ASPNETCORE_URLS=http://*:$PORT dotnet Quest.Api.dll #for heroku
