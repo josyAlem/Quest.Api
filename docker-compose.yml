@@ -1,0 +1,7 @@
+services:
+  quest.api:
+    image: josyalem/quest-api:v1.0.3
+    
+    build:
+      context: .
+      dockerfile: src/Quest.Api/Dockerfile

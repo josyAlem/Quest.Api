@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Quest.Api.Common;
 using Quest.Api.Helpers.Auth;
 using Quest.Api.Services;
 using Quest.Api.Services.Interfaces;
@@ -12,6 +13,7 @@ using Studio.Auth.Auth0.Config;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace Quest.Api
 {
@@ -80,7 +82,7 @@ namespace Quest.Api
 
             services.AddCors(c =>c.AddDefaultPolicy(p => p.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
 
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddAutoMapper(Assembly.GetAssembly(typeof(MappingProfile)));
             services.AddScoped<IAuthService, AuthService>();
         }
 

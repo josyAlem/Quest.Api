@@ -29,6 +29,6 @@ RUN dotnet publish "./Quest.Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Quest.Api.dll"]
-#CMD ASPNETCORE_URLS=http://*:$PORT dotnet Quest.Api.dll #for heroku
+CMD ASPNETCORE_URLS=http://*:$PORT dotnet Quest.Api.dll #for heroku
 
+#ENTRYPOINT ["dotnet", "Quest.Api.dll"]
