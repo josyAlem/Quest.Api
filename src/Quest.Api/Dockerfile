@@ -30,5 +30,5 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "Quest.Api.dll"]
-#CMD ASPNETCORE_URLS=http://*:$PORT dotnet Quest.Api.dll #for heroku
+#CMD ASPNETCORE_URLS=http://*:$PORT dotnet Quest.Api.dll #for heroku instead of entrypoint
 
