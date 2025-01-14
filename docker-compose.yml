@@ -1,6 +1,6 @@
 services:
   quest.api:
-    image: quest-api:latest
+    image: quest-api:latest # josyalem/quest-api:v1.0.3 for docker hub
     
     build:
       context: .
