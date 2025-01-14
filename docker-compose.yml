@@ -1,6 +1,6 @@
 services:
   quest.api:
-    image: josyalem/quest-api:v1.0.3
+    image: quest-api:latest
     
     build:
       context: .
